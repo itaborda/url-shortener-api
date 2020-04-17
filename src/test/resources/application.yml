@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: url-shortener
+
+  data:
+    mongodb:
+      uri: mongodb://localhost/urlshortener
+      auto-index-creation: true
+
+  cache:
+    type: none
+    redis:
+      time-to-live: PT1M
+    cache-names:
+      - shortify
+
+
+logging:
+  level:
+    root: INFO

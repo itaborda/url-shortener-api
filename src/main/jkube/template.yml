@@ -1,0 +1,4 @@
+kind: Template
+parameters:
+  - name: PROJECT_NAMESPACE
+    value: ycb-local

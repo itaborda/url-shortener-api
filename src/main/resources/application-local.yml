@@ -1,0 +1,6 @@
+spring:
+  redis:
+    host: localhost
+  data:
+    mongodb:
+      uri: mongodb://localhost/urlshortener

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ${spring.application.name}
+data:
+  application.yaml: |-
+    spring:
+      redis:
+        host: redis-master
+        password: ${SPRING_REDIS_PASSWORD}
+      data:
+        mongodb:
+          #uri: mongodb://mongodb:27017/urlshortener
+          host: mongodb
+          database: urlshortener
+          username: urlshortener
+          password: ${SPRING_MONGODB_PASSWORD}

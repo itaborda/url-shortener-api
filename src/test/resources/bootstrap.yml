@@ -1,0 +1,2 @@
+spring.cloud.kubernetes.secrets.enabled: false
+spring.cloud.kubernetes.config.enabled: false

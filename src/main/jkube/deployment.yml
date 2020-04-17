@@ -1,0 +1,44 @@
+metadata:
+  labels:
+    app: ${spring.application.name}
+    commit: ${git.commit.id.describe}
+  name: ${spring.application.name}
+spec:
+  replicas: ${deployment.replicas}
+  selector:
+    matchLabels:
+      app: ${spring.application.name}
+  template:
+    metadata:
+      labels:
+        app: ${spring.application.name}
+        commit: ${git.commit.id.describe}
+      annotations:
+        timestamp: ${timestamp}
+    spec:
+      serviceAccountName: url-shortener
+      containers:
+        - name: ${spring.application.name}
+          image: "${docker.push.registry}/${docker.image.prefix}/${project.artifactId}:${git.commit.id.describe}"
+          env:
+            - secres-Ref
+            -
+            - name: KUBERNETES_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+            - name: JAVA_OPTIONS
+              value: "-Xmx128m"
+            - name: SPRING_APPLICATION_NAME
+              value: ${spring.application.name}
+            - name: SPRING_REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ${spring.application.name}
+                  key: spring.redis.password
+            - name: SPRING_MONGODB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ${spring.application.name}
+                  key: spring.mongodb.password

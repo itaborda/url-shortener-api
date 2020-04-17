@@ -1,0 +1,51 @@
+version: '2'
+services:
+  mongodb:
+    image: mongo:3.0.4
+    ports:
+      - "27017:27017"
+    command: mongod --smallfiles
+
+  app:
+    build: ./shortener-app
+    expose:
+      - "8080"
+    links:
+      - mongodb
+      - redis
+    environment:
+        SPRING_DATA_MONGODB_URI: mongodb://mongodb/url-shortener
+        SPRING_APPLICATION_NAME: url-shortener
+    depends_on:
+       - mongodb
+
+  app2:
+    build: ./shortener-app
+    expose:
+      - "8080"
+    links:
+      - mongodb
+      - redis
+    environment:
+        SPRING_DATA_MONGODB_URI: mongodb://mongodb/url-shortener
+        SPRING_APPLICATION_NAME: url-shortener
+    depends_on:
+       - mongodb
+
+  nginx:
+   container_name: proxy-nginx
+   build:
+    context:  ./nginx
+    dockerfile: Dockerfile
+   ports:
+   - 8080:80
+   depends_on:
+   - app
+   - app2
+
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+

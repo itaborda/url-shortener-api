@@ -1,0 +1,13 @@
+- name: canbet
+  extends: default
+  enricher:
+    includes:
+      - jkube-healthcheck-spring-boot
+      - jkube-docker-registry-secret
+  generator:
+    includes:
+      - spring-boot
+  watcher:
+    includes:
+      - spring-boot
+      - docker-image

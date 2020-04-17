@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: url-shortener
+
+  cloud:
+    kubernetes:
+      enabled: true
+      reload:
+        enabled: true
+        strategy: refresh
+        mode: event
+
+management:
+  endpoint:
+    restart:
+      enabled: true
